@@ -3,7 +3,7 @@
  # Author: xiezg
  # Mail: xzghyd2008@hotmail.com 
  # Created Time: 2017-12-28 11:17:15
- # Last modified: 2017-12-28 16:40:19
+ # Last modified: 2018-01-03 14:29:30
  ************************************************************************/
 
 #include <stdlib.h>
@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <sys/timeb.h>
 
 int main( int argc, char ** argv )
 {
@@ -36,6 +37,9 @@ int main( int argc, char ** argv )
 
     close(fd);
 
+    struct timeb begin_tp;
+    ftime( &begin_tp );
+
     for( int i = 1; i < number; i++ ){
         int temp = num[i];
 
@@ -47,9 +51,17 @@ int main( int argc, char ** argv )
         }
     }
 
+    struct timeb end_tp;
+    ftime( &end_tp );
+
     for( int i = 0;i < number;i++ ){
         printf( "%d\n", num[i] );
     }
+
+    __int64_t begin_milliseconds =  begin_tp.time*1000 + begin_tp.millitm;
+    __int64_t end_milliseconds =  end_tp.time*1000 + end_tp.millitm;
+
+    printf( "time:%ld milliseconds\n", end_milliseconds - begin_milliseconds );
 
     return 0;
 }
