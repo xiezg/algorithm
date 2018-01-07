@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>javascript语言版本的插入排序算法</title>
+<head>
+
+<script type='text/javascript'>
+
+function jsReadFiles( f ) {
+
+    var reader = new FileReader();
+    reader.readAsArrayBuffer(f);
+
+    reader.onload=function(){
+
+        var u32 = new Int32Array( this.result );
+        var xxresult = document.getElementById( "result" )
+        var xxresult2 = document.getElementById( "result2" )
+
+        for( var i = 0;i < u32.length;i++ ){
+            var xxtr = document.createElement( 'tr' );
+            var xxtd = document.createElement( 'td' );
+            xxtd.innerHTML=u32[i];
+            xxtr.appendChild( xxtd );
+            xxresult.appendChild( xxtr )
+        }
+
+        for( var i = 1; i < u32.length; i++ ){
+            var key = u32[i];
+
+            for( var j = i-1; j >= 0; j-- ){
+                if( key < u32[j] ){
+                    u32[j+1] = u32[j];
+                    u32[j] = key;
+                }
+            }
+        }
+
+        for( var i = 0;i < u32.length;i++ ){
+            var xxtr = document.createElement( 'tr' );
+            var xxtd = document.createElement( 'td' );
+            xxtd.innerHTML=u32[i];
+            xxtr.appendChild( xxtd );
+            xxresult2.appendChild( xxtr )
+        }
+
+    }
+}
+
+</script>
+
+<style type'text/css'>
+table{
+    float:left
+}
+</style>
+
+</head>
+<body>
+
+<input type="file" onchange="jsReadFiles(this.files[0])"/>
+
+<table id='result' border='1'>
+</table>
+<table id='result2' border='1'>
+</table>
+
+</body>
+</html>
+
+
